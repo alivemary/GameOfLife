@@ -2,4 +2,44 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color:#F5F5DC;
+}
+.screen {
+  background-color: grey;
+  width: 540px;
+  margin: auto;
+  padding-top: 20px;
+  height: 320px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.board-header {
+  text-shadow: 2px 2px 4px grey;
+}
+.board {
+  display: flex;
+  width: 500px;
+  height: 300px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+   margin: auto;
+   border:  1px solid  	#8FBC8F;
+   border-right: none;
+   border-top: none;
+ }
+.line {
+  box-sizing: border-box;
+}
+.element {
+  width: 10px;
+  height: 10px;
+  font-size: 6px;
+  box-sizing: border-box;
+  border-top: 1px solid  	#8FBC8F;
+  border-right: 1px solid 	#8FBC8F;
+  background-color: black;
+}
+.element:hover {
+  background-color: gray;
 }
