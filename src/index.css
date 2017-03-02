@@ -6,10 +6,8 @@ body {
 }
 .screen {
   background-color: grey;
-  width: 540px;
   margin: auto;
   padding-top: 20px;
-  height: 320px;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -18,8 +16,6 @@ body {
 }
 .board {
   display: flex;
-  width: 500px;
-  height: 300px;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
