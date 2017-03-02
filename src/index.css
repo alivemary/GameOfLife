@@ -36,6 +36,28 @@ body {
   border-right: 1px solid 	#8FBC8F;
   background-color: black;
 }
-.element:hover {
-  background-color: gray;
+.upScreen {
+  background-color: grey;
+  margin: auto;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.downScreen {
+  background-color: grey;
+  margin: auto;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.button {
+  width: 70px;
+  background-color: black;
+  color: white;
+  padding: 3px;
+  margin: 10px;
+}
+.active {
+  background-color: pink;
+  color: black;
 }

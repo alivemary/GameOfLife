@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import Line from './Line';
 
+var timerId;
+
 class Board extends Component {
   constructor(props){
     super(props);
     this.state = {
       board: [],
-      width: 20,
+      width: 50,
       height: 30,
-      generation: 0
+      generation: 0,
+      speed: 500
     }
   }
   setBoard(){
@@ -60,8 +63,43 @@ class Board extends Component {
     let generationNumber = this.state.generation+1;
     this.setState({board: currentBoard, generation: generationNumber});
   }
+  handleRun(){
+    timerId = setInterval(() => {this.nextGeneration();}, this.state.speed);
+  }
+  handlePause(){
+    clearInterval(timerId);
+  }
+  handleClear(){
+    var board = [];
+    for (let i=0; i<this.state.width; i++) {
+      let line = [];
+      for (let j=0; j<this.state.height; j++) {
+        line.push(0);
+      }
+      board.push(line);
+    }
+    this.setState({
+      board: board,
+      generation: 0
+    });
+  }
+  handleSize(w, h){
+    this.setState({
+      width: w,
+      height: h,
+      generation: 0
+    }, () => {this.setBoard();});
+  }
+  handleSpeed(s) {
+    this.setState({
+      speed: s
+    }, () => {this.handlePause(); this.handleRun()});
+  }
   componentWillMount(){
-    if (!this.state.generation) this.setBoard();
+    if (!this.state.generation) {
+      this.setBoard();
+      timerId = setInterval(() => {this.nextGeneration();}, this.state.speed);
+    }
   }
   render() {
     let styleBoard = {
@@ -72,6 +110,14 @@ class Board extends Component {
       width: this.state.width*10+40,
       height: this.state.height*10+20
     }
+    let styleUpScreen = {
+      width: this.state.width*8,
+      height: 50
+    }
+    let styleDownScreen = {
+      width: this.state.width*8,
+      height: 100
+    }
     var boardList = this.state.board.map((line, index) => {
       return <div key={"line"+index} className='line'><Line line={line}/></div>
     });
@@ -79,12 +125,31 @@ class Board extends Component {
       <div>
         <div className="board-header">
           <h2>Generation: {this.state.generation}</h2>
-          <button onClick={this.nextGeneration.bind(this)} type='button'>Next Generation</button>
+
+        </div>
+        <div style={styleUpScreen} className="upScreen">
+          <button onClick={this.handleRun.bind(this)} type='button' className="button active">Run</button>
+          <button onClick={this.handlePause.bind(this)} type='button' className="button">Pause</button>
+          <button onClick={this.handleClear.bind(this)} type='button' className="button">Clear</button>
         </div>
         <div style={styleScreen} className="screen">
           <div style={styleBoard} className="board">
             {boardList}
           </div>
+        </div>
+        <div  style={styleDownScreen} className="downScreen">
+        <div>
+          Board Size:
+          <button onClick={this.handleSize.bind(this, 50, 30)} type='button' className="button active">50 x 30</button>
+          <button onClick={this.handleSize.bind(this, 70, 50)} type='button' className="button">70 x 50</button>
+          <button onClick={this.handleSize.bind(this, 100, 80)} type='button' className="button">100 x 80</button>
+        </div>
+        <div>
+          Sim Speed:
+          <button onClick={this.handleSpeed.bind(this, 1300)} type='button' className="button">Slow</button>
+          <button onClick={this.handleSpeed.bind(this, 700)} type='button' className="button">Medium</button>
+          <button onClick={this.handleSpeed.bind(this, 300)} type='button' className="button active">Fast</button>
+        </div>
         </div>
       </div>
     );
