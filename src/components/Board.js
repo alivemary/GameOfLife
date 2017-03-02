@@ -64,6 +64,7 @@ class Board extends Component {
     this.setState({board: currentBoard, generation: generationNumber});
   }
   handleRun(){
+    clearInterval(timerId);
     timerId = setInterval(() => {this.nextGeneration();}, this.state.speed);
   }
   handlePause(){
