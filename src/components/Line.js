@@ -25,7 +25,7 @@ class Line extends Component {
           break;
         }
       }
-      return <div style={style} key={"square"+index} className='element'></div>
+      return <div style={style}  id={this.props.number+'_'+index}  key={this.props.number+'_'+index} className='element'></div>
     });
     return (
       <div>

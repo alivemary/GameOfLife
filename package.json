@@ -2,6 +2,7 @@
   "name": "GameOfLife",
   "version": "0.1.0",
   "private": true,
+  "homepage": "htttps://alivemary.github.io/GameOfLife",
   "devDependencies": {
     "react-scripts": "0.9.1"
   },

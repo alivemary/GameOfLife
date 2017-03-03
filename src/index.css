@@ -61,3 +61,12 @@ body {
   background-color: pink;
   color: black;
 }
+.note {
+  font-size: 12px;
+  margin-top: 20px;
+}
+footer{
+    font-size: 10px;
+    margin-top: 20px;
+    text-align: center;
+}
