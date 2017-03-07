@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 
 class Line extends Component {
+
+  static propTypes = {
+    line: React.PropTypes.array,
+    number: React.PropTypes.number
+  }
+
+  static defaultProps = {
+    line: [],
+    number: 0
+  }
+
   render() {
 
     var elementList = this.props.line.map((element, index) => {
