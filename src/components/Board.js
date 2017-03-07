@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import Line from './Line';
+import ButtonGroupSize from './ButtonGroupSize';
+import ButtonGroupSpeed from './ButtonGroupSpeed';
 
 var timerId;
 
@@ -15,6 +17,8 @@ class Board extends Component {
       speed: 300,
       status: 'run'
     }
+    this.handleSize = this.handleSize.bind(this);
+    this.handleSpeed = this.handleSpeed.bind(this);
   }
   setBoard(){
     var board = [];
@@ -163,50 +167,23 @@ class Board extends Component {
           </div>
         </div>
         <div  style={styleDownScreen} className="downScreen">
-        <div>
-          Board Size:
-          <button onClick={this.handleSize.bind(this, 50, 30)}
-            type='button'
-            className={(this.state.width === 50) ? "button active" : "button"}>
-            50 x 30
-          </button>
-          <button onClick={this.handleSize.bind(this, 70, 50)}
-            type='button'
-            className={(this.state.width === 70) ? "button active" : "button"}>
-            70 x 50
-          </button>
-          <button onClick={this.handleSize.bind(this, 100, 80)}
-            type='button'
-            className={(this.state.width === 100) ? "button active" : "button"}>
-            100 x 80
-          </button>
-        </div>
-        <div>
-          Sim Speed:
-          <button onClick={this.handleSpeed.bind(this, 1300)}
-            type='button'
-            className={(this.state.speed === 1300) ? "button active" : "button"}>
-            Slow
-          </button>
-          <button onClick={this.handleSpeed.bind(this, 700)}
-            type='button'
-            className={(this.state.speed === 700) ? "button active" : "button"}>
-            Medium
-          </button>
-          <button onClick={this.handleSpeed.bind(this, 300)}
-            type='button'
-            className={(this.state.speed === 300) ? "button active" : "button"}>
-            Fast
-          </button>
-        </div>
-        <div className="note">Feel free to add cells while
-          it is running or after clearing. The pink cells
-          are younger, red are older. Enjoy!
-         </div>
-         <footer>
-           Made by Maryna Martynenko 2017<br />
-           <a href='https://github.com/alivemary/GameOfLife'>GitHub Repository</a>
-         </footer>
+
+          <ButtonGroupSize changeSize={this.handleSize}
+            width={this.state.width}
+            title='Board Size'/>
+
+          <ButtonGroupSpeed changeSpeed={this.handleSpeed}
+            speed={this.state.speed}
+            title='Sim Speed'/>
+
+          <div className="note">Feel free to add cells while
+            it is running or after clearing. The pink cells
+            are younger, red are older. Enjoy!
+          </div>
+          <footer>
+            Made by Maryna Martynenko 2017<br />
+            <a href='https://github.com/alivemary/GameOfLife'>GitHub Repository</a>
+          </footer>
         </div>
       </div>
     );
