@@ -125,7 +125,7 @@ class Board extends Component {
   handleSpeed(s) {
     this.setState({
       speed: s
-    }, () => {this.handleRun()});
+    }, () => {if (this.state.status === 'run') this.handleRun()});
   }
   handleClick(event) {
     let coordinates = event.target.id.split('_');
