@@ -1,24 +1,35 @@
 import React, { Component } from 'react';
 
 import Line from './Line';
-import ButtonGroupSize from './ButtonGroupSize';
-import ButtonGroupSpeed from './ButtonGroupSpeed';
+import ButtonGroup from './ButtonGroup';
 
 var timerId;
+const SIZE_WIDTH_MIN = 50;
+const SIZE_HEIGTH_MIN = 30;
+const SIZE_WIDTH_MEDIUM = 70;
+const SIZE_HEIGTH_MEDIUM = 50;
+const SIZE_WIDTH_BIG = 100;
+const SIZE_HEIGTH_BIG = 80;
+const SPEED_FAST = 300;
+const SPEED_MEDIUM = 600;
+const SPEED_SLOW = 900;
 
 class Board extends Component {
   constructor(props){
     super(props);
     this.state = {
       board: [],
-      width: 50,
-      height: 30,
+      width: SIZE_WIDTH_MIN,
+      height: SIZE_HEIGTH_MIN,
       generation: 0,
-      speed: 300,
+      speed: SPEED_FAST,
       status: 'run'
     }
     this.handleSize = this.handleSize.bind(this);
     this.handleSpeed = this.handleSpeed.bind(this);
+    this.handleRun = this.handleRun.bind(this);
+    this.handlePause = this.handlePause.bind(this);
+    this.handleClear = this.handleClear.bind(this);
   }
   setBoard(){
     var board = [];
@@ -92,7 +103,19 @@ class Board extends Component {
       status: 'clear'
     });
   }
-  handleSize(w, h){
+  handleSize(w){
+    let h;
+    switch (w) {
+      case SIZE_WIDTH_MIN:
+        h=SIZE_HEIGTH_MIN;
+        break;
+      case SIZE_WIDTH_MEDIUM:
+        h=SIZE_HEIGTH_MEDIUM;
+        break;
+      case SIZE_WIDTH_BIG:
+        h=SIZE_HEIGTH_BIG;
+        break;
+    }
     this.setState({
       width: w,
       height: h,
@@ -135,7 +158,7 @@ class Board extends Component {
       width: this.state.width*8,
       height: 100
     }
-    var boardList = this.state.board.map((line, index) => {
+    let boardList = this.state.board.map((line, index) => {
       return <div key={"line"+index} className='line'><Line number={index} line={line}/></div>
     });
     return (
@@ -145,21 +168,12 @@ class Board extends Component {
 
         </div>
         <div style={styleUpScreen} className="upScreen">
-          <button onClick={this.handleRun.bind(this)}
-            type='button'
-            className={(this.state.status === 'run') ? "button active" : "button"}>
-            Run
-          </button>
-          <button onClick={this.handlePause.bind(this)}
-            type='button'
-            className={(this.state.status === 'pause') ? "button active" : "button"}>
-            Pause
-          </button>
-          <button onClick={this.handleClear.bind(this)}
-            type='button'
-            className={(this.state.status === 'clear') ? "button active" : "button"}>
-            Clear
-          </button>
+          <ButtonGroup title=''
+            buttons={[
+              {title: 'Run', current: this.state.status==='run', data: 0, activity: this.handleRun},
+              {title: 'Pause', current: this.state.status==='pause', data: 0, activity: this.handlePause},
+              {title: 'Clear', current: this.state.width==='clear', data: 0, activity: this.handleClear}
+            ]}/>
         </div>
         <div style={styleScreen} className="screen">
           <div onClick={(event) => {this.handleClick(event)}} style={styleBoard} className="board">
@@ -167,14 +181,18 @@ class Board extends Component {
           </div>
         </div>
         <div  style={styleDownScreen} className="downScreen">
-
-          <ButtonGroupSize changeSize={this.handleSize}
-            width={this.state.width}
-            title='Board Size'/>
-
-          <ButtonGroupSpeed changeSpeed={this.handleSpeed}
-            speed={this.state.speed}
-            title='Sim Speed'/>
+          <ButtonGroup title='Board Size:'
+            buttons={[
+              {title: '50 x 30', current: this.state.width===SIZE_WIDTH_MIN, data: SIZE_WIDTH_MIN, activity: this.handleSize},
+              {title: '70 x 50', current: this.state.width===SIZE_WIDTH_MEDIUM, data: SIZE_WIDTH_MEDIUM, activity: this.handleSize},
+              {title: '100 x 80', current: this.state.width===SIZE_WIDTH_BIG, data: SIZE_WIDTH_BIG, activity: this.handleSize}
+            ]}/>
+          <ButtonGroup title='Sim Speed:'
+            buttons={[
+              {title: 'Slow', current: this.state.speed===SPEED_SLOW, data: SPEED_SLOW, activity: this.handleSpeed},
+              {title: 'Medium', current: this.state.speed===SPEED_MEDIUM, data: SPEED_MEDIUM, activity: this.handleSpeed},
+              {title: 'Fast', current: this.state.speed===SPEED_FAST, data: SPEED_FAST, activity: this.handleSpeed}
+            ]}/>
 
           <div className="note">Feel free to add cells while
             it is running or after clearing. The pink cells
