@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+const uuidV1 = require('uuid/v1');
 
 import Button from './Button';
 
@@ -15,7 +16,8 @@ export default class ButtonGroup extends Component {
 render() {
   let buttonsList = this.props.buttons.map(
     (button) => {
-      return <Button activity={button.activity.bind(this, button.data)}
+      return <Button key={uuidV1()}
+        activity={button.activity.bind(this, button.data)}
         current={button.current}
         data={button.data}
         title={button.title}/>

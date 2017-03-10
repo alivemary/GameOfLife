@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+const uuidV1 = require('uuid/v1');
 
 import Line from './Line';
 import ButtonGroup from './ButtonGroup';
@@ -115,6 +116,8 @@ class Board extends Component {
       case SIZE_WIDTH_BIG:
         h=SIZE_HEIGTH_BIG;
         break;
+      default:
+        h=SIZE_HEIGTH_MIN;
     }
     this.setState({
       width: w,
@@ -159,7 +162,7 @@ class Board extends Component {
       height: 100
     }
     let boardList = this.state.board.map((line, index) => {
-      return <div key={"line"+index} className='line'><Line number={index} line={line}/></div>
+      return <div key={uuidV1()} className='line'><Line number={index} line={line}/></div>
     });
     return (
       <div>

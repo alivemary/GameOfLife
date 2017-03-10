@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+const uuidV1 = require('uuid/v1');
 
 class Line extends Component {
 
@@ -36,7 +37,7 @@ class Line extends Component {
           break;
         }
       }
-      return <div style={style}  id={this.props.number+'_'+index}  key={this.props.number+'_'+index} className='element'></div>
+      return <div style={style}  id={this.props.number+'_'+index}  key={uuidV1()} className='element'></div>
     });
     return (
       <div>
